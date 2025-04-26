@@ -1,164 +1,11 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plant Disease Detection</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Plant Disease Detection</h1>
-            <p>Upload an image of a plant leaf to detect diseases and get treatment recommendations</p>
-        </header>
-        
-        <div class="upload-section">
-            <form id="upload-form" enctype="multipart/form-data">
-                <div class="file-input-container">
-                    <input type="file" id="file-input" name="file" accept="image/*">
-                    <label for="file-input" class="file-label">
-                        <span id="file-name">Choose an image</span>
-                        <span class="browse-btn">Browse</span>
-                    </label>
-                </div>
-                <button type="submit" id="submit-btn">Analyze Image</button>
-            </form>
-            
-            <div class="preview-container">
-                <img id="image-preview" src="#" alt="Preview" style="display: none;">
-            </div>
-        </div>
-        
-        <div class="results-section" id="results" style="display: none;">
-            <div class="result-header">
-                <h2>Results</h2>
-            </div>
-            <div class="result-content">
-                <div class="result-image">
-                    <img id="result-img" src="#" alt="Plant Image">
-                </div>
-                <div class="result-details">
-                    <div class="diagnosis">
-                        <h3>Diagnosis</h3>
-                        <p id="disease-name">Loading...</p>
-                    </div>
-                    <div class="description">
-                        <h3>Description</h3>
-                        <p id="disease-description">Loading...</p>
-                    </div>
-                    <div class="treatment">
-                        <h3>Treatment</h3>
-                        <p id="disease-treatment">Loading...</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="loader" id="loader" style="display: none;">
-            <div class="spinner"></div>
-            <p>Processing image...</p>
-        </div>
-    </div>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('upload-form');
-            const fileInput = document.getElementById('file-input');
-            const fileName = document.getElementById('file-name');
-            const imagePreview = document.getElementById('image-preview');
-            const loader = document.getElementById('loader');
-            const results = document.getElementById('results');
-            const resultImg = document.getElementById('result-img');
-            const diseaseName = document.getElementById('disease-name');
-            const diseaseDescription = document.getElementById('disease-description');
-            const diseaseTreatment = document.getElementById('disease-treatment');
-            
-            // Update file name when file is selected
-            fileInput.addEventListener('change', function() {
-                if (this.files && this.files[0]) {
-                    fileName.textContent = this.files[0].name;
-                    
-                    // Preview the image
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        imagePreview.src = e.target.result;
-                        imagePreview.style.display = 'block';
-                    }
-                    reader.readAsDataURL(this.files[0]);
-                } else {
-                    fileName.textContent = 'Choose an image';
-                    imagePreview.style.display = 'none';
-                }
-            });
-            
-            // Form submission
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                if (!fileInput.files || !fileInput.files[0]) {
-                    alert('Please select an image first');
-                    return;
-                }
-                
-                // Show loader
-                loader.style.display = 'flex';
-                results.style.display = 'none';
-                
-                // Create form data
-                const formData = new FormData();
-                formData.append('file', fileInput.files[0]);
-                
-                // Send request
-                fetch('/predict', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Hide loader
-                    loader.style.display = 'none';
-                    
-                    if (data.error) {
-                        alert('Error: ' + data.error);
-                        return;
-                    }
-                    
-                    // Display results
-                    diseaseName.textContent = data.name;
-                    diseaseDescription.textContent = data.description;
-                    diseaseTreatment.textContent = data.treatment;
-                    resultImg.src = '/' + data.image_path;
-                    results.style.display = 'block';
-                    
-                    // Scroll to results
-                    results.scrollIntoView({ behavior: 'smooth' });
-                })
-                .catch(error => {
-                    loader.style.display = 'none';
-                    alert('Error: ' + error);
-                });
-            });
-        });
-    </script>
-</body>
-</html> -->
-
-
-
-
-
-
-
-
-
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Plant Disease Detector</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href= "../static/css/style.css">      
 </head>
 <body class="bg-green-50 font-sans p-8">
     <div class="max-w-2xl mx-auto bg-white shadow-xl p-6 rounded-lg">
@@ -181,5 +28,120 @@
         </div>
         {% endif %}
     </div>
+</body>
+</html>  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Plant Disease Detector</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+</head>
+<body class="bg-green-50 font-sans p-4 md:p-8">
+    <div class="max-w-6xl mx-auto">
+        <!-- Weather Dashboard -->
+        <div class="bg-white shadow-xl p-4 md:p-6 rounded-lg mb-6">
+            <h2 class="text-2xl font-bold mb-4 text-green-700">Weather Dashboard</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-blue-50 p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-semibold text-blue-700 mb-2">Current Weather</h3>
+                    <div class="flex items-center">
+                        <div id="weather-icon" class="w-16 h-16 mr-4"></div>
+                        <div>
+                            <p id="temperature" class="text-2xl font-bold">--°C</p>
+                            <p id="weather-description" class="text-gray-600">Loading...</p>
+                            <p id="location" class="text-sm text-gray-500">--</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-semibold text-blue-700 mb-2">Details</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <p class="text-gray-600">Humidity</p>
+                            <p id="humidity" class="font-semibold">--%</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600">Wind</p>
+                            <p id="wind" class="font-semibold">-- km/h</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600">Pressure</p>
+                            <p id="pressure" class="font-semibold">-- hPa</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600">UV Index</p>
+                            <p id="uv-index" class="font-semibold">--</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-semibold text-blue-700 mb-2">Plant Care Tips</h3>
+                    <div id="plant-tips" class="text-sm">
+                        <p class="mb-2">Weather-based tips will appear here...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Plant Disease Detector -->
+        <div class="bg-white shadow-xl p-4 md:p-6 rounded-lg">
+            <h1 class="text-3xl font-bold mb-4 text-center text-green-700">Plant Disease Detector</h1>
+            
+            <form method="POST" enctype="multipart/form-data" class="mb-6">
+                <div class="mb-4">
+                    <label for="image-upload" class="block text-gray-700 mb-2">Upload a plant image for analysis:</label>
+                    <input id="image-upload" type="file" name="image" accept="image/*" class="mb-4 w-full border border-gray-300 rounded p-2" required>
+                </div>
+                <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition">Analyze Image</button>
+            </form>
+            
+            {% if prediction %}
+            <div class="mt-6 p-4 bg-green-50 rounded-lg">
+                <h2 class="text-xl font-semibold text-green-700 mb-2">Prediction: {{ prediction }}</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="font-semibold text-green-600 mb-1">Description:</h3>
+                        <p class="text-gray-700">{{ disease_info.description }}</p>
+                        <h3 class="font-semibold text-green-600 mt-4 mb-1">Treatment:</h3>
+                        <p class="text-gray-700">{{ disease_info.treatment }}</p>
+                    </div>
+                    {% if image_url %}
+                    <div class="flex justify-center">
+                        <div class="w-full max-w-md">
+                            <img src="{{ image_url }}" alt="Uploaded Image" class="rounded-lg shadow-md w-full h-auto">
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="mt-6 text-center text-sm text-gray-500">
+            <p>&copy; 2023 Plant Disease Detector. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script src="../static/js/weather.js"></script>
 </body>
 </html>
