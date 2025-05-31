@@ -8,7 +8,7 @@ from PIL import Image
 import os
 
 app = Flask(__name__)
-model = torch.load("plant_disease_model.pth", map_location=torch.device("cpu"))
+model = torch.load("plant_disease_model.pth", map_location=torch.device("cpu"),weights_only=False)
 # model.eval()
 
 UPLOAD_FOLDER = "static/uploads"
